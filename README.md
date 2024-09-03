@@ -28,8 +28,8 @@ Welcome to **DataLink**—a powerful command-line tool for efficient client-serv
 
 ### Prerequisites
 
-- **GCC** or any C compiler.
-- **Make** (for using the provided Makefile).
+- **GCC** - GNU Compiler Collection
+- **Make** - for using the provided Makefile
 
 ### Build Instructions
 

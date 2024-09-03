@@ -112,24 +112,24 @@ To compile the project, follow these steps:
 - **`-l`**  - List employees from the database file  
   **Usage:** `./bin/dbcli -l`
 
-- **`-a`**  - Add an employee to the database file  
-  **Usage:** `./bin/dbcli -a <name,address,hours>`
-
-- **`-e`**  - Specify employee (required for `-r` and `-u` options)  
+- **`-e`**  - Specify employee (required for `-a`, `-u`, `-r` options)  
   **Usage:** `./bin/dbcli -e <name,address,hours>`
 
-- **`-r`**  - Remove an employee from the database file (requires `-e` option)  
-  **Usage:** `./bin/dbcli -r`
+- **`-a`**  - Add an employee to the database file (requires `-e` option)  
+  **Usage:** `./bin/dbcli -a`
 
 - **`-u`**  - Update an employee's hours worked (requires `-e` option)  
   **Usage:** `./bin/dbcli -u <hours>`
+
+- **`-r`**  - Remove an employee from the database file (requires `-e` option)  
+  **Usage:** `./bin/dbcli -r`
 
 ### Examples:
 
 1. **Add an employee:**
 
     ```bash
-    ./bin/dbcli -h 127.0.0.1 -p 8080 -a "Josip Milicic,Unicorn lane 3,40"
+    ./bin/dbcli -h 127.0.0.1 -p 8080 -e "Josip Milicic,Unicorn lane 3,40" -a
     ```
 
     This command adds an employee with the name "Josip Milicic", address "Unicorn lane 3", and 40 hours worked.

@@ -5,7 +5,17 @@
 
 ## 🚀 Overview
 
-Welcome to **DataLink**—your go-to command-line tool for seamless client-server communication and database management. This project involves building a server that handles client connections, allowing clients to perform operations on a shared database file. The project is perfect for those looking to deepen their understanding of networking, file I/O, and system-level programming.
+Welcome to **DataLink**—a powerful command-line tool for efficient client-server communication and database management. This project is designed to help you gain hands-on experience with networking, file I/O, and system-level programming.
+
+### 🏗 Architecture
+
+**DataLink** utilizes a state machine to manage communication between the client and the server. The state machine simplifies the handling of different communication states and ensures a robust and responsive interaction between the two components.
+
+#### **State Machine Overview**
+
+- **Server Side:**
+  - The server uses a state machine to handle incoming client requests and manage different operational states (e.g., new, hello, msg, disconnected).
+  - The state machine transitions between states based on the input it receives, making it easier to manage complex interactions and ensure smooth operation.
 
 ## 🛠 Features
 

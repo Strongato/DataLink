@@ -19,19 +19,19 @@ int main(int argc, char* argv[])
     int ch = 0;
     bool list = false;
     bool remove = false;
-    char* add_string = NULL;
+    bool add = false;
     char* portarg = NULL;
     char* hostarg = NULL;
     char* employee_string = NULL;
     char* update_string = NULL;
     unsigned short port = 0;
 
-    while ((ch = getopt(argc, argv, "a:p:h:le:u:r")) != -1)
+    while ((ch = getopt(argc, argv, "ap:h:le:u:r")) != -1)
     {
         switch (ch)
         {
             case 'a':
-                add_string = optarg;
+                add = true;
                 break;
             case 'p':
                 portarg = optarg;
@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
         }
     }
 
-    if (validate_args_and_print_usage(argv, port, hostarg, employee_string, update_string, remove) == STATUS_ERROR) return -1;
+    if (validate_args_and_print_usage(argv, port, hostarg, employee_string, update_string, remove, add) == STATUS_ERROR) return -1;
 
     const struct sockaddr_in server_info = { .sin_family = AF_INET, .sin_addr.s_addr = inet_addr(hostarg), .sin_port = htons(port) };
 
@@ -69,12 +69,11 @@ int main(int argc, char* argv[])
 
     if (send_hello(sfd) == STATUS_ERROR) { printf("Unable to send hello between client and host\n"); close(sfd); return -1; }
 
-    if (add_string && send_employee(sfd, add_string) == STATUS_ERROR) { printf("Unable to add employee\n"); close(sfd); return -1; }
-
     if (employee_string)
     {
-        if (remove && remove_employees(sfd, employee_string) == STATUS_ERROR) { printf("Unable to remove employee from database file\n"); close(sfd); return -1; }
-        else if (update_string && update_employees(sfd, employee_string, update_string) == STATUS_ERROR) { printf("Unable to update database file\n"); close(sfd); return -1;}
+        if (add && send_employee(sfd, employee_string) == STATUS_ERROR) { printf("Unable to add employee\n"); close(sfd); return -1; }
+        else if (update_string && update_employees(sfd, employee_string, update_string) == STATUS_ERROR) { printf("Unable to update database file\n"); close(sfd); return -1; }
+        else if (remove && remove_employees(sfd, employee_string) == STATUS_ERROR) { printf("Unable to remove employee from database file\n"); close(sfd); return -1; }
     }
 
     if (list && list_employees(sfd) == STATUS_ERROR) { printf("Unable to list employees\n"); close(sfd); return -1; }

@@ -41,7 +41,7 @@ To compile the project, follow these steps:
     sudo apt-get install build-essential
     ```
 
-2. **Run `make` to compile the project**. This will generate the executable binaries as specified in your `Makefile`:
+2. **Run `make` to compile the project**. This will generate the executables as specified in your `Makefile`:
 
     ```bash
     make

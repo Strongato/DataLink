@@ -14,7 +14,7 @@
 
 int create_db_header(struct dbheader_t** headerOut)
 {
-	struct dbheader_t* header = calloc(1, sizeof(struct dbheader_t));
+    struct dbheader_t* header = calloc(1, sizeof(struct dbheader_t));
     if (!header) { perror("Unable to allocate memory for variable header"); return STATUS_ERROR; }
 
     header->version = PROTO_VER;
@@ -37,7 +37,7 @@ int validate_db_header(const int fd, struct dbheader_t** headerOut) // does not 
     if (bytes_read == -1) { perror("Failed to read from fd into variable header"); free(header); EXIT_FAILURE; }
     if (bytes_read != sizeof(struct dbheader_t)) { fprintf(stderr, "Partial read: Expected %zu bytes, but read %zd bytes from fd into variable header\n", sizeof(struct dbheader_t), bytes_read); free(header); EXIT_FAILURE; }
 
-    header->version = ntohs(header->version); // networks to header short (because type of variable version is unsigned short)
+    header->version = ntohs(header->version); // networks to host short (because type of variable version is unsigned short)
     header->count = ntohs(header->count);
     header->magic = ntohl(header->magic); // variable magic is of type unsigned int but can be used with ntohl because it expects a 32bit type (long used to be 32bit and thats where it got its name)
     header->filesize = ntohl(header->filesize);

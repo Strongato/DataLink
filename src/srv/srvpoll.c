@@ -249,7 +249,7 @@ void handle_client_fsm(struct dbheader_t* const dbhdr, struct employee_t** emplo
             else if (ret == STATUS_ERROR)
             {
                 printf("Unable to remove employee: %s\n", employee->data);
-                fsm_general_reply_missing_err(client, hdr);
+                fsm_reply_missing_err(client, hdr);
                 return;
             }
             else
@@ -276,7 +276,7 @@ void handle_client_fsm(struct dbheader_t* const dbhdr, struct employee_t** emplo
             else if (ret == STATUS_ERROR)
             {
                 printf("Unable to update employees: %s\n", employee->data);
-                fsm_general_reply_missing_err(client, hdr);
+                fsm_reply_missing_err(client, hdr);
                 return;
             }
             else

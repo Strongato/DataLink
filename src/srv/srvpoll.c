@@ -145,22 +145,6 @@ void fsm_general_reply(clientstate_t* const client, dbproto_hdr_t* const hdr, co
     write(client->fd, hdr, sizeof(dbproto_hdr_t));
 }
 
-void fsm_general_reply_err(clientstate_t* const client, dbproto_hdr_t* const hdr)
-{
-    hdr->type = htonl(MSG_ERROR);
-    hdr->len = htons(0); // sending 0 aditional elements
-
-    write(client->fd, hdr, sizeof(dbproto_hdr_t));
-}
-
-void fsm_general_reply_missing_err(clientstate_t* const client, dbproto_hdr_t* const hdr)
-{
-    hdr->type = htonl(MSG_EMPLOYEE_MISSING_RESP);
-    hdr->len = htons(0); // sending 0 aditional elements
-
-    write(client->fd, hdr, sizeof(dbproto_hdr_t));
-}
-
 void fsm_reply_hello(clientstate_t* const client, dbproto_hdr_t* const hdr)
 {
     hdr->type = htonl(MSG_HELLO_RESP);
@@ -171,16 +155,18 @@ void fsm_reply_hello(clientstate_t* const client, dbproto_hdr_t* const hdr)
 
     write(client->fd, hdr, sizeof(dbproto_hdr_t) + sizeof(dbproto_hello_resp));
 }
-void fsm_reply_hello_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply_err(client, hdr); }
+void fsm_reply_hello_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_ERROR); }
 
 void fsm_reply_add(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_EMPLOYEE_ADD_RESP); }
-void fsm_reply_add_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply_err(client, hdr); }
+void fsm_reply_add_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_ERROR); }
 
 void fsm_reply_del(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_EMPLOYEE_DEL_RESP); }
-void fsm_reply_del_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply_err(client, hdr); }
+void fsm_reply_del_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_ERROR); }
 
 void fsm_reply_update(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_EMPLOYEE_UPDATE_RESP); }
-void fsm_reply_update_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply_err(client, hdr); }
+void fsm_reply_update_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_ERROR); }
+
+void fsm_reply_missing_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_EMPLOYEE_MISSING_RESP); }
 
 void send_employees(const struct dbheader_t* const dbhdr, struct employee_t* const employees, clientstate_t* const client)
 {

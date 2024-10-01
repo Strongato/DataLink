@@ -32,15 +32,18 @@ int find_slot_by_fd(const clientstate_t* const states, const int fd);
 void fsm_general_reply(clientstate_t* const client, dbproto_hdr_t* const hdr, const dbproto_type_e type);
 
 void fsm_reply_hello(clientstate_t* const client, dbproto_hdr_t* const hdr);
-void fsm_reply_hello_err(clientstate_t* const client, dbproto_hdr_t* const hdr);
+inline void fsm_reply_hello_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_ERROR); }
 
-void fsm_reply_add(clientstate_t* const client, dbproto_hdr_t* const hdr);
-void fsm_reply_add_err(clientstate_t* const client, dbproto_hdr_t* const hdr);
+inline void fsm_reply_add(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_EMPLOYEE_ADD_RESP); }
+inline void fsm_reply_add_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_ERROR); }
 
-void fsm_reply_update(clientstate_t* const client, dbproto_hdr_t* const hdr);
-void fsm_reply_update_err(clientstate_t* const client, dbproto_hdr_t* const hdr);
+inline void fsm_reply_del(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_EMPLOYEE_DEL_RESP); }
+inline void fsm_reply_del_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_ERROR); }
 
-void fsm_reply_missing_err(clientstate_t* const client, dbproto_hdr_t* const hdr);
+inline void fsm_reply_update(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_EMPLOYEE_UPDATE_RESP); }
+inline void fsm_reply_update_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_ERROR); }
+
+inline void fsm_reply_missing_err(clientstate_t* const client, dbproto_hdr_t* const hdr) { fsm_general_reply(client, hdr, MSG_EMPLOYEE_MISSING_RESP); }
 
 void send_employees(const struct dbheader_t* const dbhdr, struct employee_t* const employees, clientstate_t* const client);
 void handle_client_fsm(struct dbheader_t* const dbhdr, struct employee_t** employees, clientstate_t* client, int dbfd, const char* const filepath);

@@ -5,7 +5,7 @@
 
 ## 🚀 Overview
 
-Welcome to **DataLink**—a powerful command-line tool for efficient client-server communication and database management. This project is designed to help you gain hands-on experience with networking, file I/O, and system-level programming.
+Welcome to **DataLink** - a powerful command-line tool for efficient client-server communication and database management. This project is designed to help you gain hands-on experience with networking, file I/O, and system-level programming.
 
 ### 🏗 Architecture
 
